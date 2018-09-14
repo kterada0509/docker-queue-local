@@ -1,12 +1,10 @@
-FROM java:8
+FROM openjdk:alpine
 
-RUN set -x \
-    && curl https://bootstrap.pypa.io/get-pip.py | python \
-    && pip install awscli
+LABEL maintainer="kterada.0509sg@gmail.com"
 
-ADD https://s3-eu-west-1.amazonaws.com/softwaremill-public/elasticmq-server-0.13.8.jar /
-ENTRYPOINT ["/usr/bin/java", "-jar", "/elasticmq-server-0.13.8.jar"]
-
+ENV ELASTICMQ_SERVER_VERSION=0.14.5
 EXPOSE 9324
 
-CMD ["-help"]
+ADD https://s3-eu-west-1.amazonaws.com/softwaremill-public/elasticmq-server-${ELASTICMQ_SERVER_VERSION}.jar /elasticmq-server.jar
+
+ENTRYPOINT ["/usr/bin/java", "-jar", "/elasticmq-server.jar"]
