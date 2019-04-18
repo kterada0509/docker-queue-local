@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:13-alpine
 
 RUN set -x \
     && curl https://bootstrap.pypa.io/get-pip.py | python \
