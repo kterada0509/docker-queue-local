@@ -1,8 +1,11 @@
 FROM openjdk:13-alpine
 
 RUN set -x \
-    && curl https://bootstrap.pypa.io/get-pip.py | python \
-    && pip install awscli
+    && apk update \
+    && apk add python3 curl \
+    && curl https://bootstrap.pypa.io/get-pip.py | python3 \
+    && pip install awscli \
+    && rm -rf /var/cache/apk/*
 
 ENV ELASTICMQ_SERVER_VERSION=0.14.6
 
